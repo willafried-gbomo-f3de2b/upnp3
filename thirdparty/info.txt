@@ -1,0 +1,6 @@
+thirdparty
+
+pupnp
+https://github.com/pupnp/pupnp
+https://github.com/pupnp/pupnp.git
+
