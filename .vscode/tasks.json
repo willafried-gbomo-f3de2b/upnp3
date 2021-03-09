@@ -13,7 +13,7 @@
             ],
             "group": "build",
             "presentation": {
-                "reveal": "silent"
+                //"reveal": "silent"
             },
             "problemMatcher": "$msCompile",
             "options": {

@@ -18,8 +18,8 @@
                     "value": "${workspaceFolder}\\build\\bin\\Debug",
                 }
             ],
-            "console": "externalTerminal",
-            "preLaunchTask": "task-build"
+            //"console": "externalTerminal",
+            "preLaunchTask": "task-build",
         }
     ]
 }
