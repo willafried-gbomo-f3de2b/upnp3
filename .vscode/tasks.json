@@ -17,8 +17,8 @@
             },
             "problemMatcher": "$msCompile",
             "options": {
-                "cwd": "${workspaceFolder}/build"},
-
+                "cwd": "${workspaceFolder}/build"
+            },
         }
     ]
 }
