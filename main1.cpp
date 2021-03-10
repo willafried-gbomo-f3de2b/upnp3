@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
     UpnpSetLogFileNames("pupnp.log", "");
     
-    if ((e = UpnpInit2("ワイヤレス ネットワーク接続", 50123)) != UPNP_E_SUCCESS)
+    if ((e = UpnpInit2("Wi-Fi 2"/*"{B6E1F4CE-F6F0-4EB3-A144-4BDB80944B1C}"*/, 50123)) != UPNP_E_SUCCESS)
     {
         std::cout << "error. UpnpInit2" << std::endl;
         return 1;
