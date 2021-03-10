@@ -1,6 +1,10 @@
 thirdparty
 
 pupnp
-https://github.com/pupnp/pupnp
-https://github.com/pupnp/pupnp.git
+ https://github.com/pupnp/pupnp
+ https://github.com/pupnp/pupnp.git
+
+pthreads4w
+ https://github.com/Vollstrecker/pthreads4w
+ https://github.com/Vollstrecker/pthreads4w.git
 
