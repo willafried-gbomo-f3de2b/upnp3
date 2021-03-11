@@ -9,12 +9,11 @@
 #include <iostream>
 #include <memory>
 
-
-template <class T> const T* ifnull(const T* p, const T* q)
+template <class T>
+const T *ifnull(const T *p, const T *q)
 {
 	return p ? p : q;
 }
-
 
 std::optional<NIInfoList> GetNIInfoList(void)
 {
@@ -47,20 +46,39 @@ std::optional<NIInfoList> GetNIInfoList(void)
 
 	IP_ADAPTER_ADDRESSES_LH *ptr = buf.get();
 	NIInfoList lst;
-	while (ptr) {
+	while (ptr)
+	{
 		NIInfo nii = {};
 		nii.name = ifnull(ptr->AdapterName, "");
 		nii.friendly_name = ifnull(ptr->FriendlyName, L"");
 		nii.metric = (int)ptr->Ipv4Metric;
 		nii.metric_v6 = (int)ptr->Ipv6Metric;
 		memcpy(nii.macaddr, ptr->PhysicalAddress, 6);
-		
 
+		nii.up = ptr->OperStatus == IfOperStatusUp;
+
+		for (auto p = ptr->FirstUnicastAddress; p;)
+		{
+			std::vector<uint8_t> addr;
+			switch (p->Address.lpSockaddr->sa_family)
+			{
+			case AF_INET:
+				addr.insert(std::end(addr), p->Address.lpSockaddr->sa_data + 2, p->Address.lpSockaddr->sa_data + 6);
+				nii.ip4addr.push_back(std::move(addr));
+				break;
+			case AF_INET6:
+				break;
+
+			}
+
+
+
+			p = p->Next;
+		}
 
 		lst.push_back(std::move(nii));
 		ptr = ptr->Next;
 	}
-
 
 	return std::move(lst);
 }
