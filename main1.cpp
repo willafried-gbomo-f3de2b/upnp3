@@ -41,18 +41,22 @@ int main(int argc, char *argv[])
     std::sort(std::begin(niilst.value()), std::end(niilst.value()), [](auto& n1, auto& n2){
         return n1.metric < n2.metric;
     });
-    
+
     int e;
 
     UpnpSetLogFileNames("pupnp.log", "");
     
-    if ((e = UpnpInit2("Wi-Fi 2"/*"{B6E1F4CE-F6F0-4EB3-A144-4BDB80944B1C}"*/, 50123)) != UPNP_E_SUCCESS)
+    char buf[256] = {};
+    ::WideCharToMultiByte(CP_ACP, 0, niilst.value()[0].friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
+
+    if ((e = UpnpInit2(buf, 50123)) != UPNP_E_SUCCESS)
     {
         std::cout << "error. UpnpInit2" << std::endl;
         return 1;
     }
 
-    const char url[] = "http://192.168.11.12/xml.xml";
+    //const char url[] = "http://192.168.11.12/xml.xml";
+    const char url[] = "xml.xml";
     COOKIE cookie = {123};
     UpnpDevice_Handle h;
     if ((e = UpnpRegisterRootDevice(
