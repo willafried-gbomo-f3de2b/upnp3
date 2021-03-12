@@ -9,6 +9,8 @@
 #include <windows.h>
 
 #include <iostream>
+#include <algorithm>
+
 
 typedef struct COOKIE
 {
@@ -32,7 +34,14 @@ int main(int argc, char *argv[])
         std::cout << "error1" << std::endl;
         return 1;
     }
+    niilst.value().erase(std::remove_if(std::begin(niilst.value()), std::end(niilst.value()), [](auto& nii) {
+        return !nii.up || !(nii.ip4addr.size() || nii.ip6addr.size());
+    }), std::end(niilst.value()));
 
+    std::sort(std::begin(niilst.value()), std::end(niilst.value()), [](auto& n1, auto& n2){
+        return n1.metric < n2.metric;
+    });
+    
     int e;
 
     UpnpSetLogFileNames("pupnp.log", "");
