@@ -1,0 +1,20 @@
+<?xml version="1.0" ?>
+<root xmlns="urn:schemas-upnp-org:device-1-0" xmlns:df= "http://schemas.microsoft.com/windows/2008/09/devicefoundation">
+
+    <specVersion>
+        <major>major version number</major>
+        <minor>minor version number</minor>
+    </specVersion>
+
+    <URLBase>http://127.0.0.1:1234</URLBase>
+
+    <device>
+        <!-- Place device metadata here. See UPnP spec for details.-->
+        <df:X_containerID>
+            <!-- Place the ContainerID GUID here. -->
+            {73003296-bde6-4ab5-babd-fbe1bfccf22}
+        </df:X_containerID >
+
+    </device>
+
+</root>
