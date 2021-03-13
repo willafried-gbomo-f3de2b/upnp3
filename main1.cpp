@@ -11,7 +11,6 @@
 #include <iostream>
 #include <algorithm>
 
-
 typedef struct COOKIE
 {
     int a;
@@ -27,25 +26,28 @@ int fncb(Upnp_EventType EventType, const void *Event, void *Cookie)
 
 int main(int argc, char *argv[])
 {
+#pragma region
     std::cout << "main." << std::endl;
 
     auto niilst = GetNIInfoList();
-    if (!niilst) {
+    if (!niilst)
+    {
         std::cout << "error1" << std::endl;
         return 1;
     }
-    niilst.value().erase(std::remove_if(std::begin(niilst.value()), std::end(niilst.value()), [](auto& nii) {
-        return !nii.up || !(nii.ip4addr.size() || nii.ip6addr.size());
-    }), std::end(niilst.value()));
+    niilst.value().erase(std::remove_if(std::begin(niilst.value()), std::end(niilst.value()), [](auto &nii) {
+                             return !nii.up || !(nii.ip4addr.size() || nii.ip6addr.size());
+                         }),
+                         std::end(niilst.value()));
 
-    std::sort(std::begin(niilst.value()), std::end(niilst.value()), [](auto& n1, auto& n2){
+    std::sort(std::begin(niilst.value()), std::end(niilst.value()), [](auto &n1, auto &n2) {
         return n1.metric < n2.metric;
     });
-
+#pragma endregion
     int e;
 
     UpnpSetLogFileNames("pupnp.log", "");
-    
+
     char buf[256] = {};
     ::WideCharToMultiByte(CP_ACP, 0, niilst.value()[0].friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
 
