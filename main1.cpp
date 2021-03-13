@@ -93,5 +93,10 @@ int main(int argc, char *argv[])
         return 1;
     }
 
+    if ((e = UpnpFinish()) != UPNP_E_SUCCESS)
+    {
+        std::cout << "error. UpnpFinish, " << e << std::endl;
+        return 1;
+    }
     std::cout << "main.end." << std::endl;
 }
