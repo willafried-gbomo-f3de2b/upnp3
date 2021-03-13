@@ -84,7 +84,9 @@
         "xlocmon": "cpp",
         "xloctime": "cpp",
         "xtree": "cpp",
-        "typeindex": "cpp"
+        "typeindex": "cpp",
+        "xthread": "cpp",
+        "thread": "cpp"
     },
     "cmake.configureOnOpen": false
 }

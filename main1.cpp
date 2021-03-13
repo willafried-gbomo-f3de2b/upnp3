@@ -10,6 +10,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <thread>
 
 typedef struct COOKIE
 {
@@ -82,16 +83,24 @@ int main(int argc, char *argv[])
     };
 
     //const char url[] = "http://192.168.11.12/xml.xml";
-    const std::string url = std::string("http://") + make_address_string(nii.ip4addr[0].data()) + ":50123"+ "/root.xml";
+    const std::string url = std::string("http://") + make_address_string(nii.ip4addr[0].data()) + ":50123" + "/root.xml";
 
     COOKIE cookie = {123};
-    UpnpDevice_Handle h;
+    UpnpDevice_Handle hnd;
     if ((e = UpnpRegisterRootDevice(
-             url.c_str(), fncb, &cookie, &h)) != UPNP_E_SUCCESS)
+             url.c_str(), fncb, &cookie, &hnd)) != UPNP_E_SUCCESS)
     {
         std::cout << "error. UpnpRegisterRootDevice, " << e << std::endl;
         return 1;
     }
+
+    if ((e = UpnpSendAdvertisement(hnd, 0)) != UPNP_E_SUCCESS)
+    {
+        std::cout << "error. UpnpSendAdvertisement, " << e << std::endl;
+        return 1;
+    }
+
+    std::this_thread::sleep_for(std::chrono::seconds(60));
 
     if ((e = UpnpFinish()) != UPNP_E_SUCCESS)
     {
@@ -99,4 +108,6 @@ int main(int argc, char *argv[])
         return 1;
     }
     std::cout << "main.end." << std::endl;
+
+    return 0;
 }
