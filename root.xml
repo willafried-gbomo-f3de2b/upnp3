@@ -1,20 +1,78 @@
-<?xml version="1.0" ?>
-<root xmlns="urn:schemas-upnp-org:device-1-0" xmlns:df= "http://schemas.microsoft.com/windows/2008/09/devicefoundation">
-
+<?xml version="1.0"?>
+<root xmlns="urn:schemas-upnp-org:device-1-0"
+    xmlns:dlna="urn:schemas-dlna-org:device-1-0"
+    xmlns:sec="http://www.sec.co.kr/dlna">
     <specVersion>
-        <major>major version number</major>
-        <minor>minor version number</minor>
+        <major>1</major>
+        <minor>0</minor>
     </specVersion>
-
-    <URLBase>http://127.0.0.1:1234</URLBase>
-
     <device>
-        <!-- Place device metadata here. See UPnP spec for details.-->
-        <df:X_containerID>
-            <!-- Place the ContainerID GUID here. -->
-            {73003296-bde6-4ab5-babd-fbe1bfccf22}
-        </df:X_containerID >
+        <dlna:X_DLNACAP/>
+        <dlna:X_DLNADOC>DMS-1.50</dlna:X_DLNADOC>
+        <dlna:X_DLNADOC>M-DMS-1.50</dlna:X_DLNADOC>
+        <UDN>uuid:ffc16736-93e6-4afe-afc2-6be401ede85c6</UDN>
+        <friendlyName>my server</friendlyName>
+        <deviceType>urn:schemas-upnp-org:device:MediaServer:1</deviceType>
+        <manufacturer>Petr Nejedly</manufacturer>
+        <manufacturerURL>http://www.serviio.org</manufacturerURL>
+        <modelName>my serv</modelName>
+        <modelDescription>Serviio, a DLNA media server</modelDescription>
+        <modelNumber>2.0</modelNumber>
+        <modelURL>http://www.serviio.org</modelURL>
+        <serialNumber></serialNumber>
 
+        <iconList>
+            <icon>
+                <mimetype>image/png</mimetype>
+                <width>48</width>
+                <height>48</height>
+                <depth>24</depth>
+                <url>/icon/smallPNG</url>
+            </icon>
+            <icon>
+                <mimetype>image/png</mimetype>
+                <width>120</width>
+                <height>120</height>
+                <depth>24</depth>
+                <url>/icon/largePNG</url>
+            </icon>
+            <icon>
+                <mimetype>image/jpeg</mimetype>
+                <width>48</width>
+                <height>48</height>
+                <depth>24</depth>
+                <url>/icon/smallJPG</url>
+            </icon>
+            <icon>
+                <mimetype>image/jpeg</mimetype>
+                <width>120</width>
+                <height>120</height>
+                <depth>24</depth>
+                <url>/icon/largeJPG</url>
+            </icon>
+        </iconList>
+        <serviceList>
+            <service>
+                <serviceType>urn:schemas-upnp-org:service:ConnectionManager:1</serviceType>
+                <serviceId>urn:upnp-org:serviceId:ConnectionManager</serviceId>
+                <SCPDURL>/serviceDescription/ConnectionManager</SCPDURL>
+                <controlURL>/serviceControl</controlURL>
+                <eventSubURL>/serviceEventing/ConnectionManager</eventSubURL>
+            </service>
+            <service>
+                <serviceType>urn:schemas-upnp-org:service:ContentDirectory:1</serviceType>
+                <serviceId>urn:upnp-org:serviceId:ContentDirectory</serviceId>
+                <SCPDURL>/serviceDescription/ContentDirectory</SCPDURL>
+                <controlURL>/serviceControl</controlURL>
+                <eventSubURL>/serviceEventing/ContentDirectory</eventSubURL>
+            </service>
+            <service>
+                <serviceType>urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1</serviceType>
+                <serviceId>urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar</serviceId>
+                <SCPDURL>/serviceDescription/X_MS_MediaReceiverRegistrar</SCPDURL>
+                <controlURL>/serviceControl</controlURL>
+                <eventSubURL>/serviceEventing/X_MS_MediaReceiverRegistrar</eventSubURL>
+            </service>
+        </serviceList>
     </device>
-
 </root>
