@@ -9,11 +9,6 @@
 #include <iostream>
 #include <memory>
 
-template <class T>
-const T *ifnull(const T *p, const T *q)
-{
-	return p ? p : q;
-}
 
 std::optional<NIInfoList> GetNIInfoList(void)
 {

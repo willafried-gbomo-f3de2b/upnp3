@@ -15,8 +15,12 @@
             "environment": [
                 {
                     "name": "path",
-                    "value": "${workspaceFolder}\\build\\bin\\Debug",
-                }
+                    "value": "${workspaceFolder}\\build\\bin\\Debug"
+                },
+                {
+                    "name": "WEB_ROOT_PATH",
+                    "value": "${workspaceFolder}\\web"
+                },
             ],
             //"console": "externalTerminal",
             "preLaunchTask": "task-build",

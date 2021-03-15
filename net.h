@@ -18,3 +18,9 @@ struct NIInfo
 typedef std::vector<NIInfo> NIInfoList;
 
 std::optional<NIInfoList> GetNIInfoList(void);
+
+template <class T> const T *ifnull(const T *p, const T *q)
+{
+	return p ? p : q;
+}
+

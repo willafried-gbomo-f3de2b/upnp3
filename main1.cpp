@@ -11,6 +11,7 @@
 #include <iostream>
 #include <algorithm>
 #include <thread>
+#include <locale>
 
 typedef struct COOKIE
 {
@@ -42,8 +43,11 @@ int main(int argc, char *argv[])
 #pragma region
     std::cout << "main." << std::endl;
 
-    std::string root_xml = std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\")) + "\\root.xml";
-    std::string root = std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\"));
+    // std::string root_xml = std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\")) + "\\root.xml";
+    // std::string root = std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\"));
+    std::string root = ifnull(::getenv("WEB_ROOT_PATH"), "");
+    std::cout << root << std::endl;
+    int port = 50123;
 
     auto niilst = GetNIInfoList();
     if (!niilst)
@@ -67,10 +71,13 @@ int main(int argc, char *argv[])
 
     UpnpSetLogFileNames("pupnp.log", "");
 
-    char buf[256] = {};
-    ::WideCharToMultiByte(CP_ACP, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
+    setlocale(LC_ALL, ".UTF8");
+    std::cout << ::GetThreadLocale() << std::endl;
 
-    if ((e = UpnpInit2(buf, 50123)) != UPNP_E_SUCCESS)
+    char buf[256] = {};
+    ::WideCharToMultiByte(CP_UTF8, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
+
+    if ((e = UpnpInit2(buf, port)) != UPNP_E_SUCCESS)
     {
         std::cout << "error. UpnpInit2, " << e << std::endl;
         return 1;
@@ -83,7 +90,7 @@ int main(int argc, char *argv[])
     };
 
     //const char url[] = "http://192.168.11.12/xml.xml";
-    const std::string url = std::string("http://") + make_address_string(nii.ip4addr[0].data()) + ":50123" + "/root.xml";
+    const std::string url = std::string("http://") + make_address_string(nii.ip4addr[0].data()) + ":"  + std::to_string(port) + "/root.xml";
 
     COOKIE cookie = {123};
     UpnpDevice_Handle hnd;

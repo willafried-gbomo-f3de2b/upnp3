@@ -16,10 +16,12 @@
 # message("CMAKE_CURRENT_LIST_DIR = ${CMAKE_CURRENT_LIST_DIR}")
 
 set(DOWNLOAD_AND_BUILD_DEPS ON)
-option (BUILD_TESTING "" OFF)
+option(BUILD_TESTING "" OFF)
 set(BUILD_TESTING OFF CACHE BOOL "")
-option (samples "" OFF)
+option(samples "" OFF)
 set(samples OFF CACHE BOOL "")
+option(ipv6 "" OFF)
+set(ipv6 OFF CACHE BOOL "")
 
 add_subdirectory(pupnp)
 
