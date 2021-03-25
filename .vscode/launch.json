@@ -15,7 +15,8 @@
             "environment": [
                 {
                     "name": "path",
-                    "value": "${workspaceFolder}\\build\\bin\\Debug"
+                    //"value": "${workspaceFolder}\\build\\bin\\Debug"
+                    "value": "${workspaceFolder}\\build\\thirdparty\\out\\lib"
                 },
                 {
                     "name": "WEB_ROOT_PATH",
