@@ -20,6 +20,21 @@
             "options": {
                 "cwd": "${workspaceFolder}/build"
             }
+        },
+        {
+            "label": "task-build-deps",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "..",
+                "-DBUILD_DEPS=1"
+            ],
+            "group": "build",
+            "presentation": {},
+            "problemMatcher": "$msCompile",
+            "options": {
+                "cwd": "${workspaceFolder}/build"
+            }
         }
     ]
 }
