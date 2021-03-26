@@ -1,8 +1,8 @@
 ﻿
 
 // #include "thirdparty/pupnp/upnp/inc/upnp.h"
-#include "thirdparty/pupnp/upnp/inc/upnp.h"
-#include <upnpdebug.h>
+#include "upnp/upnp.h"
+#include <upnp/upnpdebug.h>
 
 #include "net.h"
 

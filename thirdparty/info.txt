@@ -8,3 +8,11 @@ pthreads4w
  https://github.com/Vollstrecker/pthreads4w
  https://github.com/Vollstrecker/pthreads4w.git
 
+libebml
+ https://github.com/Matroska-Org/libebml
+ https://github.com/Matroska-Org/libebml.git
+
+libmatroska
+ https://github.com/Matroska-Org/libmatroska
+ https://github.com/Matroska-Org/libmatroska.git
+

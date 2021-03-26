@@ -8,7 +8,7 @@
             "name": "cl.exe",
             "type": "cppvsdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\build\\Debug\\upnp2.exe",
+            "program": "${workspaceFolder}\\build\\Debug\\upnp3.exe",
             "args": [],
             "stopAtEntry": true,
             "cwd": "${workspaceFolder}",
