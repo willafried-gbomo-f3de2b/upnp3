@@ -121,6 +121,27 @@ execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../
     OUTPUT_QUIET
     )
 
+# sqlite
+message("--- sqlite --- ${CMAKE_CURRENT_BINARY_DIR}/sqlite")
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sqlite)
+
+message("  --- sqlite --- generate ---")
+execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/sqlite
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sqlite
+    #OUTPUT_QUIET
+    )
+
+message("  --- sqlite --- build ---")
+execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sqlite
+    #OUTPUT_QUIET
+    )
+
+message("  --- sqlite --- install ---")
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../out
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sqlite
+    #OUTPUT_QUIET
+    )
 # 
 
 

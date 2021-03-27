@@ -3,6 +3,10 @@
 // #include "thirdparty/pupnp/upnp/inc/upnp.h"
 #include "upnp/upnp.h"
 #include <upnp/upnpdebug.h>
+#include "matroska/matroska_export.h"
+#include <matroska/FileKax.h>
+#include "FLAC/all.h"
+#include "sqlite/sqlite3.h"
 
 #include "net.h"
 
@@ -90,7 +94,7 @@ int main(int argc, char *argv[])
     };
 
     //const char url[] = "http://192.168.11.12/xml.xml";
-    const std::string url = std::string("http://") + make_address_string(nii.ip4addr[0].data()) + ":"  + std::to_string(port) + "/root.xml";
+    const std::string url = std::string("http://") + make_address_string(nii.ip4addr[0].data()) + ":" + std::to_string(port) + "/root.xml";
 
     COOKIE cookie = {123};
     UpnpDevice_Handle hnd;
@@ -114,7 +118,13 @@ int main(int argc, char *argv[])
         std::cout << "error. UpnpFinish, " << e << std::endl;
         return 1;
     }
-    std::cout << "main.end." << std::endl;
+
+    matroska_init();
+    FLAC__StreamDecoder *decoder = FLAC__stream_decoder_new();
+    auto a = sqlite3_libversion();
+
+    std::cout
+        << "main.end." << std::endl;
 
     return 0;
 }

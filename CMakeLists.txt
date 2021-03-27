@@ -35,6 +35,7 @@ target_compile_features(upnp3 PUBLIC cxx_std_17)
 
 target_link_directories(upnp3
     PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/out/lib
+    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/out/bin
     )
 
 
@@ -43,6 +44,9 @@ target_link_libraries(upnp3
     upnpd
     #ixml_shared
     ixmld
+    matroska
+    flac
+    sqlite
 
     Iphlpapi.lib
     )
