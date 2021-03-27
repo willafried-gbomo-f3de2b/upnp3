@@ -78,7 +78,7 @@ execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../
     )
 
 # libmatroska
-message("--- libebml --- ${CMAKE_CURRENT_BINARY_DIR}/libmatroska")
+message("--- libmatroska --- ${CMAKE_CURRENT_BINARY_DIR}/libmatroska")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libmatroska)
 
 message("  --- libmatroska --- generate ---")
@@ -96,6 +96,28 @@ execute_process(COMMAND ${CMAKE_COMMAND} --build .
 message("  --- libmatroska --- install ---")
 execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../out
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libmatroska
+    OUTPUT_QUIET
+    )
+
+# flac
+message("--- flac --- ${CMAKE_CURRENT_BINARY_DIR}/flac")
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac)
+
+message("  --- flac --- generate ---")
+execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/flac -D BUILD_PROGRAMS=OFF -D BUILD_EXAMPLES=OFF -D BUILD_TESTING=OFF -D BUILD_CXXLIBS=OFF -D WITH_OGG=OFF -D BUILD_SHARED_LIBS=ON
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
+    OUTPUT_QUIET
+    )
+
+message("  --- flac --- build ---")
+execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
+    OUTPUT_QUIET
+    )
+
+message("  --- flac --- install ---")
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../out
+    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
     OUTPUT_QUIET
     )
 

@@ -15,4 +15,7 @@ libebml
 libmatroska
  https://github.com/Matroska-Org/libmatroska
  https://github.com/Matroska-Org/libmatroska.git
-
+ 
+flac
+ https://github.com/xiph/flac
+ https://github.com/xiph/flac.git
