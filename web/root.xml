@@ -1,38 +1,32 @@
 <?xml version="1.0"?>
 <root xmlns="urn:schemas-upnp-org:device-1-0">
-    <specVersion>
-        <major>1</major>
-        <minor>0</minor>
-    </specVersion>
-    <!-- <URLBase>base URL for all relative URLs</URLBase> -->
-    <device>
-        <deviceType>urn:schemas-upnp-org:device:MediaServer:1</deviceType>
-        <friendlyName>short user-friendly title</friendlyName>
-        <manufacturer>manufacturer name</manufacturer>
-        <manufacturerURL>http://manufacturer.com</manufacturerURL>
-        <modelDescription>long user-friendly title</modelDescription>
-        <modelName>model name</modelName>
-        <modelNumber>model number</modelNumber>
-        <modelURL>http://modelurl.com</modelURL>
-        <serialNumber>manufacturer's serial number</serialNumber>
-        <UDN>uuid:UUID</UDN>
-        <UPC>Universal Product Code</UPC>
+  <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+  </specVersion>
+  <!-- <URLBase>base URL for all relative URLs</URLBase> -->
+  <device>
+    <deviceType>urn:schemas-upnp-org:device:MediaServer:1</deviceType>
+    <friendlyName>short user-friendly title</friendlyName>
+    <manufacturer>manufacturer name</manufacturer>
+    <manufacturerURL>http://manufacturer.com</manufacturerURL>
+    <modelDescription>long user-friendly title</modelDescription>
+    <modelName>model name</modelName>
+    <modelNumber>model number</modelNumber>
+    <modelURL>http://modelurl.com</modelURL>
+    <serialNumber>manufacturer's serial number</serialNumber>
+    <UDN>uuid:dd20d719-d464-4606-9f05-60a0d22bc50e</UDN>
+    <UPC>Universal Product Code</UPC>
+    <!-- <presentationURL>URL for presentation</presentationURL> -->
 
-        <presentationURL>URL for presentation</presentationURL>
-    </device>
     <serviceList>
-        <service>
-            <serviceType>urn:schemas-upnp-org:service:ContentDirectory:1</serviceType>
-            <serviceId>urn:upnp-org:serviceId:ContentDirectory</serviceId>
-            <SCPDURL>
-http://scpdurl.com
-            </SCPDURL>
-            <controlURL>
-http://ctrlurl.com
-            </controlURL>
-            <eventSubURL>
-http://eventsuburl.com
-            </eventSubURL>
-        </service>
+      <service>
+        <serviceType>urn:schemas-upnp-org:service:ContentDirectory:1</serviceType>
+        <serviceId>urn:upnp-org:serviceId:ContentDirectory</serviceId>
+        <SCPDURL>/ContentDirectory/scpd.xml</SCPDURL>
+        <controlURL>/ContentDirectory/control.xml</controlURL>
+        <eventSubURL>/ContentDirectory/event.xml</eventSubURL>
+      </service>
     </serviceList>
+  </device>
 </root> 
