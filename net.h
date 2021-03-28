@@ -19,8 +19,33 @@ typedef std::vector<NIInfo> NIInfoList;
 
 std::optional<NIInfoList> GetNIInfoList(void);
 
-template <class T> const T *ifnull(const T *p, const T *q)
+// template <class T> const T *ifnull(const T *p, const T *q)
+// {
+// 	return p ? p : q;
+// }
+
+namespace datail {
+
+template <class T, class U, class V = void> struct ifnulltmpl;
+
+template <class T, class U> struct ifnulltmpl<T, U, std::enable_if<
+    sizeof (decltype((T)std::declval<U>())) != 0
+    >::type> 
 {
-	return p ? p : q;
+    static T op(T t, U u) 
+    {
+        return (T)u;
+    }
+};
+
+} // namespace datail
+
+template <class T, class U> T ifnull(T t, U u)
+{
+    if ((void*)t == (void*)0) {
+    return datail::ifnulltmpl<T, U>::op(t, u);
+    }
+    return t;
 }
+
 

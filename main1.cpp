@@ -22,11 +22,34 @@ typedef struct COOKIE
     int a;
 } COOKIE;
 
+void OnActionRequest(Upnp_EventType EventType, const void *Event, void *Cookie)
+{
+    std::cout << "OnActionRequest()" << std::endl;
+    UpnpActionRequest *ptr = (UpnpActionRequest *)Event;
+    UpnpActionRequest *ev = (UpnpActionRequest *)Event;
+
+    const char *devUDN = UpnpString_get_String(UpnpActionRequest_get_DevUDN(ev));
+    const char *serviceID = UpnpString_get_String(UpnpActionRequest_get_ServiceID(ev));
+    const char *actionName = UpnpString_get_String(UpnpActionRequest_get_ActionName(ev));
+    std::cout << "udn:" << ifnull(devUDN, "") << ", sid:" << ifnull(serviceID, "") << ", act:" << ifnull(actionName, "") << std::endl;
+
+    auto xml = UpnpActionRequest_get_ActionRequest(ev);
+    UpnpActionRequest_set_ActionResult(ev, xml);
+
+    //std::cout << ptr->m_ActionName << std::endl;
+}
+
 int fncb(Upnp_EventType EventType, const void *Event, void *Cookie)
 {
     std::cout << "fncb"
               << ", EventType=" << EventType << ", Event=" << std::hex << Event << ", cookie=" << Cookie << std::endl;
 
+    switch (EventType)
+    {
+    case UPNP_CONTROL_ACTION_REQUEST:
+        OnActionRequest(EventType, Event, Cookie);
+        break;
+    }
     return 0;
 }
 
@@ -46,6 +69,7 @@ int main(int argc, char *argv[])
 {
 #pragma region
     std::cout << "main." << std::endl;
+    std::string a(ifnull("", "a"));
 
     // std::string root_xml = std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\")) + "\\root.xml";
     // std::string root = std::string(argv[0]).substr(0, std::string(argv[0]).find_last_of("\\"));
@@ -121,7 +145,7 @@ int main(int argc, char *argv[])
 
     matroska_init();
     FLAC__StreamDecoder *decoder = FLAC__stream_decoder_new();
-    auto a = sqlite3_libversion();
+    auto sqlv = sqlite3_libversion();
 
     std::cout
         << "main.end." << std::endl;
