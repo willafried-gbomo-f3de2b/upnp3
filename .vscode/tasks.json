@@ -1,56 +1,58 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "label": "task-generate",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "..",
-                "-D",
-                "BUILD_DEPS=0"
-            ],
-            "group": "build",
-            "presentation": {},
-            "problemMatcher": "$msCompile",
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            }
-        },
-        {
-            "label": "task-build",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "--build",
-                "."
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "presentation": {},
-            "problemMatcher": "$msCompile",
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            }
-        },
-        {
-            "label": "task-build-deps",
-            "type": "shell",
-            "command": "cmake",
-            "args": [
-                "..",
-                "-DBUILD_DEPS=1"
-            ],
-            "group": "build",
-            "presentation": {},
-            "problemMatcher": "$msCompile",
-            "options": {
-                "cwd": "${workspaceFolder}/build"
-            }
-        }
-    ]
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "task-generate",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["..", "-DBUILD_DEPS=0", "-DCMAKE_BUILD_TYPE=Debug"],
+      "group": "build",
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    },
+    {
+      "label": "task-build",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["--build", ".", "--config", "Debug"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    },
+    {
+      "label": "task-build-rel",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["--build", ".", "--config", "RelWithDebInfo"],
+      "group": "build",
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    },
+    {
+      "label": "task-build-deps",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["..", "-DBUILD_DEPS=1"],
+      "group": "build",
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    }
+  ]
 }

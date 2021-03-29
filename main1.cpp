@@ -1,12 +1,13 @@
 ﻿
+#define UPNP_DEBUG_C
 
-// #include "thirdparty/pupnp/upnp/inc/upnp.h"
-#include "FLAC/all.h"
-#include "matroska/matroska_export.h"
-#include "sqlite/sqlite3.h"
 #include "upnp/upnp.h"
-#include <matroska/FileKax.h>
-#include <upnp/upnpdebug.h>
+#include "upnp/upnpdebug.h"
+#include "upnp/upnptools.h"
+#include "sqlite/sqlite3.h"
+#include "matroska/matroska_export.h"
+#include "matroska/FileKax.h"
+#include "FLAC/all.h"
 
 #include "net.h"
 
@@ -17,6 +18,17 @@
 #include <locale>
 #include <thread>
 
+void build(void)
+{
+	const char * build_type =
+#ifdef CBUILD_TYPE
+		BUILD_TYPE;
+#else
+		"N/A";
+#endif
+	std::cout << "BuildType: " << build_type << std::endl;
+}
+
 typedef struct COOKIE
 {
 	int a;
@@ -26,22 +38,26 @@ struct A
 {
 };
 
-void OnActionRequest(
-	Upnp_EventType EventType, const void *Event, void *Cookie)
+void OnActionRequest(Upnp_EventType EventType, const void *Event, void *Cookie)
 {
 	std::cout << "OnActionRequest()" << std::endl;
 	UpnpActionRequest *ptr = (UpnpActionRequest *)Event;
 	UpnpActionRequest *ev = (UpnpActionRequest *)Event;
 
-	const char *devUDN = UpnpString_get_String(UpnpActionRequest_get_DevUDN(ev));
-	const char *serviceID = UpnpString_get_String(UpnpActionRequest_get_ServiceID(ev));
-	const char *actionName = UpnpString_get_String(UpnpActionRequest_get_ActionName(ev));
+	const char *devUDN = UpnpString_get_String(
+		UpnpActionRequest_get_DevUDN(ev));
+	const char *serviceID = UpnpString_get_String(
+		UpnpActionRequest_get_ServiceID(ev));
+	const char *actionName = UpnpString_get_String(
+		UpnpActionRequest_get_ActionName(ev));
 	std::cout << "udn:" << ifnull(devUDN, "")
 			  << ", sid:" << ifnull(serviceID, "")
 			  << ", act:" << ifnull(actionName, "") << std::endl;
 
-	auto xml = UpnpActionRequest_get_ActionRequest(ev);
-	UpnpActionRequest_set_ActionResult(ev, xml);
+	IXML_Document *xml_req = UpnpActionRequest_get_ActionRequest(ev);
+	IXML_Document *xml_res = nullptr;
+	int e = UpnpAddToActionResponse(&xml_res, actionName, serviceID, "SearchCaps", "1");
+	UpnpActionRequest_set_ActionResult(ev, xml_res);
 
 	// std::cout << ptr->m_ActionName << std::endl;
 }
@@ -58,7 +74,7 @@ int fncb(Upnp_EventType EventType, const void *Event, void *Cookie)
 		OnActionRequest(EventType, Event, Cookie);
 		break;
 	}
-	return 0;
+	return UPNP_E_SUCCESS;
 }
 
 std::string make_address_string(uint8_t *u)
@@ -77,6 +93,7 @@ int main(int argc, char *argv[])
 {
 #pragma region
 	std::cout << "main." << std::endl;
+	build();
 	std::string a(ifnull("", "a"));
 
 	// std::string root_xml = std::string(argv[0]).substr(0,
@@ -116,6 +133,7 @@ int main(int argc, char *argv[])
 	char buf[256] = {};
 	::WideCharToMultiByte(
 		CP_UTF8, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
+	std::cout << "nii.friend: "<< buf << std::endl;
 
 	if ((e = UpnpInit2(buf, port)) != UPNP_E_SUCCESS)
 	{

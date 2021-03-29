@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cl.exe",
+            "name": "run-debug",
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\build\\Debug\\upnp3.exe",
@@ -25,6 +25,28 @@
             ],
             //"console": "externalTerminal",
             "preLaunchTask": "task-build",
+            "console": "integratedTerminal",
+        },
+        {
+            "name": "run-release",
+            "type": "cppvsdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}\\build\\RelWithDebInfo\\upnp3.exe",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [
+                {
+                    "name": "path",
+                    "value": "${workspaceFolder}\\build\\thirdparty\\out\\lib;${workspaceFolder}\\build\\thirdparty\\out\\bin"
+                },
+                {
+                    "name": "WEB_ROOT_PATH",
+                    "value": "${workspaceFolder}\\web"
+                },
+            ],
+            //"console": "externalTerminal",
+            "preLaunchTask": "task-build-rel",
             "console": "integratedTerminal",
         }
     ]
