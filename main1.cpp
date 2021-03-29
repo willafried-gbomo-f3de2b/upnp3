@@ -12,15 +12,17 @@
 #include "net.h"
 
 #include <windows.h>
+#include <stdlib.h>
 
 #include <algorithm>
 #include <iostream>
 #include <locale>
 #include <thread>
+#include <string>
 
 void build(void)
 {
-	const char * build_type =
+	const char *build_type =
 #ifdef CBUILD_TYPE
 		BUILD_TYPE;
 #else
@@ -130,10 +132,11 @@ int main(int argc, char *argv[])
 	setlocale(LC_ALL, ".UTF8");
 	std::cout << ::GetThreadLocale() << std::endl;
 
+	nii.friendly_name = L"Wi-Fi 第二";
 	char buf[256] = {};
 	::WideCharToMultiByte(
 		CP_UTF8, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
-	std::cout << "nii.friend: "<< buf << std::endl;
+	std::cout << "nii.friend: " << buf << std::endl;
 
 	if ((e = UpnpInit2(buf, port)) != UPNP_E_SUCCESS)
 	{
@@ -151,6 +154,11 @@ int main(int argc, char *argv[])
 	const std::string url = std::string("http://") +
 							make_address_string(nii.ip4addr[0].data()) + ":" +
 							std::to_string(port) + "/root.xml";
+
+	std::wstring ws = L"Bluetooth ネットワーク接続 2";
+	char cbuf[100] = {};
+	wcstombs(cbuf, ws.c_str(), 100);
+	std::cout << cbuf << std::endl;
 
 	COOKIE cookie = {123};
 	UpnpDevice_Handle hnd;
