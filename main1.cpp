@@ -1,4 +1,5 @@
 ﻿
+#define UPNP_DEBUG_C
 
 #include "upnp/upnp.h"
 #include "upnp/upnpdebug.h"
@@ -16,6 +17,17 @@
 #include <iostream>
 #include <locale>
 #include <thread>
+
+void build(void)
+{
+	const char * build_type =
+#ifdef CBUILD_TYPE
+		BUILD_TYPE;
+#else
+		"N/A";
+#endif
+	std::cout << "BuildType: " << build_type << std::endl;
+}
 
 typedef struct COOKIE
 {
@@ -81,6 +93,7 @@ int main(int argc, char *argv[])
 {
 #pragma region
 	std::cout << "main." << std::endl;
+	build();
 	std::string a(ifnull("", "a"));
 
 	// std::string root_xml = std::string(argv[0]).substr(0,
@@ -120,6 +133,7 @@ int main(int argc, char *argv[])
 	char buf[256] = {};
 	::WideCharToMultiByte(
 		CP_UTF8, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
+	std::cout << "nii.friend: "<< buf << std::endl;
 
 	if ((e = UpnpInit2(buf, port)) != UPNP_E_SUCCESS)
 	{
