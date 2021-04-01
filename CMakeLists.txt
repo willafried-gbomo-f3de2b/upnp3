@@ -19,6 +19,7 @@ add_executable(upnp3
 
 target_include_directories(upnp3 
     PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/out/include
+    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/out/include/pthread
     )
 
 # target_include_directories(upnp2 
@@ -33,6 +34,8 @@ target_include_directories(upnp3
 #     )
 
 target_compile_features(upnp3 PUBLIC cxx_std_17)
+
+target_compile_definitions(upnp3 PUBLIC UPNP_USE_MSVCPP)
 
 
 target_link_directories(upnp3

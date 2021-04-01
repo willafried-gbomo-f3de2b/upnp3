@@ -130,16 +130,20 @@ int main(int argc, char *argv[])
 
 	// UpnpSetLogFileName("pupnp.log", "");
 
-	setlocale(LC_ALL, ".UTF8");
+	setlocale(LC_ALL, ".utf8");
+	//setlocale(LC_ALL, "");
 	std::cout << ::GetThreadLocale() << std::endl;
 
-	nii.friendly_name = L"Wi-Fi 第二";
+	//nii.friendly_name = L"Wi-Fi 第二";
 	char buf[256] = {};
 	::WideCharToMultiByte(
 		CP_UTF8, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
 	std::cout << "nii.friend: " << buf << std::endl;
 
 	UpnpLib *upnp = nullptr;
+	UpnpLog* upnp_log = UpnpLog_new();
+
+	UpnpSetLogFileName(upnp_log, "pupnp.log");
 
 	if ((e = UpnpInit2(&upnp, buf, port, "upnplog.txt")) != UPNP_E_SUCCESS)
 	{
@@ -147,7 +151,7 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	UpnpSetLogFileName(upnp, "pupnp.log");
+	//UpnpSetLogFileName(upnp, "pupnp.log");
 
 	if ((e = UpnpSetWebServerRootDir(upnp, root.c_str())) != UPNP_E_SUCCESS)
 	{
