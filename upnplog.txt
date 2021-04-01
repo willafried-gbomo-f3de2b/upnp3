@@ -1,0 +1,7 @@
+2021-04-01 15:12:59 DEBG UPNP:API  [0x0000000000690428][C:\Users\admin\Desktop\git-f3\upnp3\thirdparty\pupnp\upnp\src\api\upnpapi.cpp:260] Inside UpnpInitPreamble
+2021-04-01 15:12:59 DEBG UPNP:API  [0x0000000000690428][C:\Users\admin\Desktop\git-f3\upnp3\thirdparty\pupnp\upnp\src\api\upnpapi.cpp:277] Trying a write lock
+2021-04-01 15:12:59 DEBG UPNP:API  [0x0000000000690428][C:\Users\admin\Desktop\git-f3\upnp3\thirdparty\pupnp\upnp\src\api\upnpapi.cpp:277] Write lock acquired
+2021-04-01 15:12:59 DEBG UPNP:API  [0x0000000000690428][C:\Users\admin\Desktop\git-f3\upnp3\thirdparty\pupnp\upnp\src\api\upnpapi.cpp:279] Trying Unlock
+2021-04-01 15:12:59 DEBG UPNP:API  [0x0000000000690428][C:\Users\admin\Desktop\git-f3\upnp3\thirdparty\pupnp\upnp\src\api\upnpapi.cpp:279] Unlocked rwlock
+2021-04-01 15:12:59 INFO UPNP:API  [0x0000000000690428][C:\Users\admin\Desktop\git-f3\upnp3\thirdparty\pupnp\upnp\src\api\upnpapi.cpp:417] UpnpInit2 with IfName=Wi-Fi 第二, DestPort=50123.
+2021-04-01 15:12:59 CRIT UPNP:API  [0x0000000000690428][C:\Users\admin\Desktop\git-f3\upnp3\thirdparty\pupnp\upnp\src\api\upnpapi.cpp:3869] Failed to find an adapter with valid IP addresses for use.

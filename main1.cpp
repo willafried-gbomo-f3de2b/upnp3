@@ -2,7 +2,7 @@
 #define UPNP_DEBUG_C
 
 #include "upnp/upnp.h"
-#include "upnp/upnpdebug.h"
+#include "upnp/UpnpLog.h"
 #include "upnp/upnptools.h"
 #include "sqlite/sqlite3.h"
 #include "matroska/matroska_export.h"
@@ -40,7 +40,7 @@ struct A
 {
 };
 
-void OnActionRequest(Upnp_EventType EventType, const void *Event, void *Cookie)
+void OnActionRequest(Upnp_EventType EventType, const void *Event, const void *Cookie)
 {
 	std::cout << "OnActionRequest()" << std::endl;
 	UpnpActionRequest *ptr = (UpnpActionRequest *)Event;
@@ -64,7 +64,8 @@ void OnActionRequest(Upnp_EventType EventType, const void *Event, void *Cookie)
 	// std::cout << ptr->m_ActionName << std::endl;
 }
 
-int fncb(Upnp_EventType EventType, const void *Event, void *Cookie)
+// int fncb(Upnp_EventType EventType, const void *Event, void *Cookie)
+int fncb(UpnpLib *p, Upnp_EventType EventType, const void *Event, const void *Cookie)
 {
 	std::cout << "fncb"
 			  << ", EventType=" << EventType << ", Event=" << std::hex << Event
@@ -127,7 +128,7 @@ int main(int argc, char *argv[])
 	NIInfo &nii = niilst.value()[0];
 	int e;
 
-	UpnpSetLogFileNames("pupnp.log", "");
+	// UpnpSetLogFileName("pupnp.log", "");
 
 	setlocale(LC_ALL, ".UTF8");
 	std::cout << ::GetThreadLocale() << std::endl;
@@ -138,13 +139,17 @@ int main(int argc, char *argv[])
 		CP_UTF8, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
 	std::cout << "nii.friend: " << buf << std::endl;
 
-	if ((e = UpnpInit2(buf, port)) != UPNP_E_SUCCESS)
+	UpnpLib *upnp = nullptr;
+
+	if ((e = UpnpInit2(&upnp, buf, port, "upnplog.txt")) != UPNP_E_SUCCESS)
 	{
 		std::cout << "error. UpnpInit2, " << e << std::endl;
 		return 1;
 	}
 
-	if ((e = UpnpSetWebServerRootDir(root.c_str())) != UPNP_E_SUCCESS)
+	UpnpSetLogFileName(upnp, "pupnp.log");
+
+	if ((e = UpnpSetWebServerRootDir(upnp, root.c_str())) != UPNP_E_SUCCESS)
 	{
 		std::cout << "error. UpnpSetWebServerRootDir, " << e << std::endl;
 		return 1;
@@ -162,14 +167,14 @@ int main(int argc, char *argv[])
 
 	COOKIE cookie = {123};
 	UpnpDevice_Handle hnd;
-	if ((e = UpnpRegisterRootDevice(url.c_str(), fncb, &cookie, &hnd)) !=
+	if ((e = UpnpRegisterRootDevice(upnp, url.c_str(), fncb, &cookie, &hnd)) !=
 		UPNP_E_SUCCESS)
 	{
 		std::cout << "error. UpnpRegisterRootDevice, " << e << std::endl;
 		return 1;
 	}
 
-	if ((e = UpnpSendAdvertisement(hnd, 0)) != UPNP_E_SUCCESS)
+	if ((e = UpnpSendAdvertisement(upnp, hnd, 0)) != UPNP_E_SUCCESS)
 	{
 		std::cout << "error. UpnpSendAdvertisement, " << e << std::endl;
 		return 1;
@@ -177,7 +182,7 @@ int main(int argc, char *argv[])
 
 	std::this_thread::sleep_for(std::chrono::seconds(60));
 
-	if ((e = UpnpFinish()) != UPNP_E_SUCCESS)
+	if ((e = UpnpFinish(upnp)) != UPNP_E_SUCCESS)
 	{
 		std::cout << "error. UpnpFinish, " << e << std::endl;
 		return 1;

@@ -43,7 +43,7 @@ target_link_directories(upnp3
 
 target_link_libraries(upnp3 
     #upnp_shared
-    upnpd
+    libupnpd
     #ixml_shared
     ixmld
     matroska
