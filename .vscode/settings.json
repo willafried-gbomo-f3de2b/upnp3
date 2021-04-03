@@ -73,7 +73,11 @@
     "xtree": "cpp",
     "xutility": "cpp"
   },
-  "C_Cpp.default.includePath": ["${default}", "build/thirdparty/out/include"],
+  "C_Cpp.default.includePath": [
+    "${default}", 
+    "build/thirdparty/out/include",
+    "build/thirdparty/out/include/pthread"
+  ],
   "C_Cpp.default.cppStandard": "c++17",
   "terminal.integrated.fontSize": 13,
   "favorites.sortOrder": "DESC",
