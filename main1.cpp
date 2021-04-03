@@ -130,14 +130,15 @@ int main(int argc, char *argv[])
 
 	// UpnpSetLogFileName("pupnp.log", "");
 
-	setlocale(LC_ALL, ".utf8");
+	char *locale = setlocale(LC_ALL, "");
+	std::cout << "LOCALE: " << locale << std::endl;
 	//setlocale(LC_ALL, "");
 	std::cout << ::GetThreadLocale() << std::endl;
 
 	//nii.friendly_name = L"Wi-Fi 第二";
 	char buf[256] = {};
 	::WideCharToMultiByte(
-		CP_UTF8, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
+		CP_THREAD_ACP, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
 	std::cout << "nii.friend: " << buf << std::endl;
 
 	UpnpLib *upnp = nullptr;
@@ -145,7 +146,7 @@ int main(int argc, char *argv[])
 
 	UpnpSetLogFileName(upnp_log, "pupnp.log");
 
-	if ((e = UpnpInit2(&upnp, buf, port, "upnplog.txt")) != UPNP_E_SUCCESS)
+	if ((e = UpnpInit2(&upnp, buf, port, "pupnp2.log")) != UPNP_E_SUCCESS)
 	{
 		std::cout << "error. UpnpInit2, " << e << std::endl;
 		return 1;
