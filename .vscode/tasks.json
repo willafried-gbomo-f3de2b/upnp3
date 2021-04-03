@@ -46,7 +46,7 @@
       "label": "task-build-deps",
       "type": "shell",
       "command": "cmake",
-      "args": ["..", "-DBUILD_DEPS=1"],
+      "args": ["..", "-DBUILD_DEPS=1", "-DPREPARE_DEPS=1"],
       "group": "build",
       "presentation": {},
       "problemMatcher": "$msCompile",

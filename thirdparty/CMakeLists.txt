@@ -64,6 +64,8 @@ endif()
 
 
 # --- build deps ---
+message("--- building deps --- ${CMAKE_CURRENT_BINARY_DIR}")
+
 # pthreads4w
 message("--- pthreads4w --- ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w)
