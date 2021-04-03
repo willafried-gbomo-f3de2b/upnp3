@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.0)
 
+# dwonload sqlite3 source zip (sqlite-amalgamation-xxxx.zip) from official site.
+# extract the zip here, rename output directory "sqlite-amalgamation".
+
 project (sqlite)
 
 add_library(sqlite SHARED 
