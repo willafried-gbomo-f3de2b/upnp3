@@ -46,7 +46,30 @@
       "label": "task-build-deps",
       "type": "shell",
       "command": "cmake",
-      "args": ["..", "-DBUILD_DEPS=1", "-DPREPARE_DEPS=1"],
+      "args": ["..", "-DBUILD_DEPS=1"],
+      "group": "build",
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    },
+    {
+      "label": "task-prepare-build-deps",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["..", "-DPREPARE_DEPS=1", "-DBUILD_DEPS=1"],
+      "group": "build",
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    },{
+      "label": "task-update-build-deps",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["..", "-DUPDATE_DEPS=1", "-DBUILD_DEPS=1"],
       "group": "build",
       "presentation": {},
       "problemMatcher": "$msCompile",
@@ -54,5 +77,6 @@
         "cwd": "${workspaceFolder}/build"
       }
     }
+
   ]
 }

@@ -1,5 +1,11 @@
 cmake_minimum_required(VERSION 3.0)
 
+
+# set(CMAKE_RUNTIME_OUTPUT_DIRECTORY bin2)
+# set(CMAKE_LIBRARY_OUTPUT_DIRECTORY bin2)
+# set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY lib2)
+
+
 project(upnp3)
 
 # --- deps ---
@@ -28,7 +34,7 @@ target_compile_definitions(upnp3 PUBLIC UPNP_USE_MSVCPP)
 
 target_link_directories(upnp3
     PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/out/lib
-    PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/out/bin
+    #PUBLIC ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/out/bin
     )
 
 target_link_libraries(upnp3 

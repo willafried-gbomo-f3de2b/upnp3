@@ -16,7 +16,7 @@
                 {
                     "name": "path",
                     //"value": "${workspaceFolder}\\build\\bin\\Debug"
-                    "value": "${workspaceFolder}\\build\\thirdparty\\out\\lib;${workspaceFolder}\\build\\thirdparty\\out\\bin"
+                    "value": "${workspaceFolder}\\build\\thirdparty\\out\\bin"
                 },
                 {
                     "name": "WEB_ROOT_PATH",
