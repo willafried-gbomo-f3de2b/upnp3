@@ -80,6 +80,8 @@ if (UPDATE_DEPS)
     message("  --- sqlite update needed.")
 endif()
 
+
+# BUILD -------------------------------
 if(BUILD_DEPS)
 # --- build deps ---
 message("--- building deps: BUILD_TYPE=${BUILD_TYPE} --- ${CMAKE_CURRENT_BINARY_DIR}")
@@ -89,21 +91,27 @@ file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/outtmp)
 message("--- pthreads4w --- ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w)
 
+if(${BUILD_TYPE} STREQUAL "RelWithDebInfo" OR ${BUILD_TYPE} STREQUAL "Release")
+    set(BT "Release")
+else()
+    set(BT "Debug")
+endif()
+
 message("  --- pthreads4w - generate")
-execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pthreads4w -D BUILD_TESTING=OFF -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
+execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pthreads4w -D BUILD_TESTING=OFF
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w
     OUTPUT_QUIET
     )
 
 message("  --- pthreads4w - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BT}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w
     OUTPUT_QUIET
     )
 
 message("  --- pthreads4w - install")
 file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/outtmp)
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BT} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w
     OUTPUT_QUIET
     )
@@ -112,28 +120,34 @@ execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --pr
 message("--- pupnp --- ${CMAKE_CURRENT_BINARY_DIR}/pupnp")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp)
 
+if(${BUILD_TYPE} STREQUAL "RelWithDebInfo" OR ${BUILD_TYPE} STREQUAL "Release")
+    set(BT "Release")
+else()
+    set(BT "Debug")
+endif()
+
 message("  --- pupnp - generate")
 execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pupnp -D samples=OFF -D  DOWNLOAD_AND_BUILD_DEPS=OFF -D BUILD_TESTING=OFF -D ipv6=OFF -D PTHREADS4W_DIR=${CMAKE_CURRENT_BINARY_DIR}/outtmp/lib/cmake 
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
     #OUTPUT_QUIET
     OUTPUT_VARIABLE OUTSTDVAR
-    ERROR_VARIABLE OUTERRVAR
+    #ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- pupnp - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BT}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
     #OUTPUT_QUIET
     OUTPUT_VARIABLE OUTSTDVAR
-    ERROR_VARIABLE OUTERRVAR
+    #ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- pupnp - install")
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BT} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
     #OUTPUT_QUIET
     OUTPUT_VARIABLE OUTSTDVAR
-    ERROR_VARIABLE OUTERRVAR
+    #ERROR_VARIABLE OUTERRVAR
     )
 
 # libebml
@@ -188,7 +202,7 @@ execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/flac -D BUI
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
     #OUTPUT_QUIET
     OUTPUT_VARIABLE OUTSTDVAR
-    ERROR_VARIABLE OUTERRVAR
+    #ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- flac - build")
@@ -196,7 +210,7 @@ execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
     #OUTPUT_QUIET
     OUTPUT_VARIABLE OUTSTDVAR
-    ERROR_VARIABLE OUTERRVAR
+    #ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- flac - install")
@@ -204,7 +218,7 @@ execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --pr
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
     #OUTPUT_QUIET
     OUTPUT_VARIABLE OUTSTDVAR
-    ERROR_VARIABLE OUTERRVAR
+    #ERROR_VARIABLE OUTERRVAR
     )
 
 # sqlite
