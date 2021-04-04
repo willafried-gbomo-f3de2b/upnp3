@@ -1,4 +1,5 @@
-﻿
+﻿#define _CRT_SECURE_NO_WARNINGS
+
 #define UPNP_DEBUG_C
 
 #include "upnp/upnp.h"
