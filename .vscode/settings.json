@@ -84,6 +84,22 @@
   "favorites.resources": ["main1.cpp", "thirdparty\\pupnp\\upnp\\sample"],
   "editor.colorDecorators": true,
   "peacock.color": "#2b2003",
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#5b4306",
+    "activityBar.activeBorder": "#000000",
+    "activityBar.background": "#5b4306",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#000000",
+    "activityBarBadge.foreground": "#e7e7e7",
+    "statusBar.background": "#2b2003",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#5b4306",
+    "titleBar.activeBackground": "#2b2003",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#2b200399",
+    "titleBar.inactiveForeground": "#e7e7e799"
+  },
 
   // "editor.fontSize": 12
 }
