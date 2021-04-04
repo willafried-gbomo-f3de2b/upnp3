@@ -1,3 +1,7 @@
+cmake_minimum_required(VERSION 3.0)
+
+project(deps)
+
 # VS CRT Options
 string(REGEX REPLACE " */M[TD]d? *" " " CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
 string(REGEX REPLACE " */M[TD]d? *" " " CMAKE_C_FLAGS_Debug "${CMAKE_C_FLAGS_Debug}")
@@ -111,7 +115,9 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp)
 message("  --- pupnp - generate")
 execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pupnp -D samples=OFF -D  DOWNLOAD_AND_BUILD_DEPS=OFF -D BUILD_TESTING=OFF -D ipv6=OFF -D PTHREADS4W_DIR=${CMAKE_CURRENT_BINARY_DIR}/outtmp/lib/cmake 
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
-    OUTPUT_QUIET
+    #OUTPUT_QUIET
+    OUTPUT_VARIABLE OUTSTDVAR
+    ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- pupnp - build")
@@ -165,7 +171,7 @@ execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     )
 
 message("  --- libmatroska - install")
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libmatroska
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libmatroska
     OUTPUT_QUIET
     )
 
@@ -176,19 +182,25 @@ file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac)
 message("  --- flac - generate")
 execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/flac -D BUILD_PROGRAMS=OFF -D BUILD_EXAMPLES=OFF -D BUILD_TESTING=OFF -D BUILD_CXXLIBS=OFF -D WITH_OGG=OFF -D BUILD_SHARED_LIBS=ON
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
-    OUTPUT_QUIET
+    #OUTPUT_QUIET
+    OUTPUT_VARIABLE OUTSTDVAR
+    ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- flac - build")
 execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
-    OUTPUT_QUIET
+    #OUTPUT_QUIET
+    OUTPUT_VARIABLE OUTSTDVAR
+    ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- flac - install")
 execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
-    OUTPUT_QUIET
+    #OUTPUT_QUIET
+    OUTPUT_VARIABLE OUTSTDVAR
+    ERROR_VARIABLE OUTERRVAR
     )
 
 # sqlite
