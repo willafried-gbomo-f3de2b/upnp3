@@ -1,3 +1,17 @@
+# VS CRT Options
+string(REGEX REPLACE " */M[TD]d? *" " " CMAKE_C_FLAGS "${CMAKE_C_FLAGS}")
+string(REGEX REPLACE " */M[TD]d? *" " " CMAKE_C_FLAGS_Debug "${CMAKE_C_FLAGS_Debug}")
+string(REGEX REPLACE " */M[TD]d? *" " " CMAKE_C_FLAGS_Release "${CMAKE_C_FLAGS_Release}")
+string(REGEX REPLACE " */M[TD]d? *" " " CMAKE_C_FLAGS_RelWithDebInfo "${CMAKE_C_FLAGS_RelWithDebInfo}")
+
+string(APPEND CMAKE_C_FLAGS_Debug "/MDd")
+string(APPEND CMAKE_C_FLAGS_Release "/MD")
+string(APPEND CMAKE_C_FLAGS_RelWithDebInfo "/MD")
+
+message("CMAKE_C_FLAGS: ${CMAKE_C_FLAGS}")
+message("CMAKE_C_FLAGS_Debug: ${CMAKE_C_FLAGS_Debug}")
+message("CMAKE_C_FLAGS_Release: ${CMAKE_C_FLAGS_Release}")
+message("CMAKE_C_FLAGS_RelWithDebInfo: ${CMAKE_C_FLAGS_RelWithDebInfo}")
 
 # --- clone dependencies ---
 if (PREPARE_DEPS)
@@ -62,7 +76,7 @@ if (UPDATE_DEPS)
     message("  --- sqlite update needed.")
 endif()
 
-
+if(BUILD_DEPS)
 # --- build deps ---
 message("--- building deps --- ${CMAKE_CURRENT_BINARY_DIR}")
 file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/outtmp)
@@ -72,20 +86,20 @@ message("--- pthreads4w --- ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w)
 
 message("  --- pthreads4w - generate")
-execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pthreads4w -D BUILD_TESTING=OFF
+execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pthreads4w -D BUILD_TESTING=OFF -D CMAKE_BUILD_TYPE=${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w
     OUTPUT_QUIET
     )
 
 message("  --- pthreads4w - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w
     OUTPUT_QUIET
     )
 
 message("  --- pthreads4w - install")
 file(REMOVE ${CMAKE_CURRENT_BINARY_DIR}/outtmp)
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../outtmp
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pthreads4w
     OUTPUT_QUIET
     )
@@ -101,13 +115,13 @@ execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pupnp -D sa
     )
 
 message("  --- pupnp - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
     OUTPUT_QUIET
     )
 
 message("  --- pupnp - install")
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../outtmp
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
     OUTPUT_QUIET
     )
@@ -117,19 +131,19 @@ message("--- libebml --- ${CMAKE_CURRENT_BINARY_DIR}/libebml")
 file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libebml)
 
 message("  --- libebml - generate")
-execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/libebml -D BUILD_SHARED_LIBS=1
+execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/libebml -D BUILD_SHARED_LIBS=1 
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libebml
     OUTPUT_QUIET
     )
 
 message("  --- libebml - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libebml
     OUTPUT_QUIET
     )
 
 message("  --- libebml - install")
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../outtmp
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libebml
     OUTPUT_QUIET
     )
@@ -145,14 +159,13 @@ execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/libmatroska
     )
 
 message("  --- libmatroska - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libmatroska
     OUTPUT_QUIET
     )
 
 message("  --- libmatroska - install")
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../outtmp
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libmatroska
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libmatroska
     OUTPUT_QUIET
     )
 
@@ -167,13 +180,13 @@ execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/flac -D BUI
     )
 
 message("  --- flac - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
     OUTPUT_QUIET
     )
 
 message("  --- flac - install")
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../outtmp
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/flac
     OUTPUT_QUIET
     )
@@ -189,13 +202,13 @@ execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/sqlite
     )
 
 message("  --- sqlite - build")
-execute_process(COMMAND ${CMAKE_COMMAND} --build . 
+execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sqlite
     OUTPUT_QUIET
     )
 
 message("  --- sqlite - install")
-execute_process(COMMAND ${CMAKE_COMMAND} --install . --config Debug --prefix ../outtmp
+execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/sqlite
     OUTPUT_QUIET
     )
@@ -207,15 +220,19 @@ file(GLOB OUT
     ${CMAKE_CURRENT_BINARY_DIR}/outtmp/lib/*.lib
     ${CMAKE_CURRENT_BINARY_DIR}/outtmp/bin/*.lib
     )
-file(COPY ${OUT} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/out/lib)
+#message("  --- LIBS: ${OUT}")
+file(COPY ${OUT} DESTINATION ${OUT_LIB_PREFIX})
 
 file(GLOB OUT 
     ${CMAKE_CURRENT_BINARY_DIR}/outtmp/lib/*.dll
     ${CMAKE_CURRENT_BINARY_DIR}/outtmp/bin/*.dll
     )
-file(COPY ${OUT} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/out/bin)
+message("  --- BINS: ${OUT}")
+file(COPY ${OUT} DESTINATION ${OUT_BIN_PREFIX})
 
 file(GLOB OUT LIST_DIRECTORIES true
     ${CMAKE_CURRENT_BINARY_DIR}/outtmp/include/*
     )
-file(COPY ${OUT} DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/out/include)
+file(COPY ${OUT} DESTINATION ${OUT_INC_PREFIX})
+
+endif()
