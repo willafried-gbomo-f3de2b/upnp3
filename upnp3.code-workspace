@@ -10,19 +10,19 @@
         "workbench.colorTheme": "Visual Studio Dark - C++",
         "workbench.colorCustomizations": {
             "activityBar.activeBackground": "#0c284c",
-            "activityBar.activeBorder": "#3f81ad",
+            "activityBar.activeBorder": "#a51a57",
             "activityBar.background": "#0c284c",
             "activityBar.foreground": "#e7e7e7",
             "activityBar.inactiveForeground": "#e7e7e799",
-            "activityBarBadge.background": "#0f740f",
+            "activityBarBadge.background": "#a51a57",
             "activityBarBadge.foreground": "#e7e7e7",
-            // "statusBar.background": "#051120",
-            // "statusBar.foreground": "#e7e7e7",
-            // "statusBarItem.hoverBackground": "#0c284c",
-            // "titleBar.activeBackground": "#051120",s
-            // "titleBar.activeForeground": "#e7e7e7",
-            // "titleBar.inactiveBackground": "#05112099",
-            // "titleBar.inactiveForeground": "#e7e7e799"
+            "statusBar.background": "#051120",
+            "statusBar.foreground": "#e7e7e7",
+            "statusBarItem.hoverBackground": "#0c284c",
+            "titleBar.activeBackground": "#051120",
+            "titleBar.activeForeground": "#e7e7e7",
+            "titleBar.inactiveBackground": "#05112099",
+            "titleBar.inactiveForeground": "#e7e7e799"
         },
         "editor.fontSize": 12.5
     }
