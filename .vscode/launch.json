@@ -1,52 +1,49 @@
 {
-    // IntelliSense を使用して利用可能な属性を学べます。
-    // 既存の属性の説明をホバーして表示します。
-    // 詳細情報は次を確認してください: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "run-debug",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\build\\Debug\\upnp3.exe",
+      "args": [],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [
         {
-            "name": "run-debug",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}\\build\\Debug\\upnp3.exe",
-            "args": [],
-            "stopAtEntry": true,
-            "cwd": "${workspaceFolder}",
-            "environment": [
-                {
-                    "name": "path",
-                    "value": "${workspaceFolder}\\build\\thirdparty\\out\\bin"
-                },
-                {
-                    "name": "WEB_ROOT_PATH",
-                    "value": "${workspaceFolder}\\web"
-                },
-            ],
-            //"console": "externalTerminal",
-            "preLaunchTask": "task-build",
-            "console": "integratedTerminal",
+          "name": "path",
+          "value": "${workspaceFolder}\\build\\thirdparty\\out\\bin"
         },
         {
-            "name": "run-release",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}\\build\\RelWithDebInfo\\upnp3.exe",
-            "args": [],
-            "stopAtEntry": true,
-            "cwd": "${workspaceFolder}",
-            "environment": [
-                {
-                    "name": "path",
-                    "value": "${workspaceFolder}\\build\\thirdparty\\out\\bin"
-                },
-                {
-                    "name": "WEB_ROOT_PATH",
-                    "value": "${workspaceFolder}\\web"
-                },
-            ],
-            //"console": "externalTerminal",
-            "preLaunchTask": "task-build-rel",
-            "console": "integratedTerminal",
+          "name": "WEB_ROOT_PATH",
+          "value": "${workspaceFolder}\\web"
         }
-    ]
+      ],
+      //"console": "externalTerminal",
+      "preLaunchTask": "task-build",
+      "console": "integratedTerminal"
+    },
+    {
+      "name": "run-release",
+      "type": "cppvsdbg",
+      "request": "launch",
+      "program": "${workspaceFolder}\\build\\RelWithDebInfo\\upnp3.exe",
+      "args": [],
+      "stopAtEntry": true,
+      "cwd": "${workspaceFolder}",
+      "environment": [
+        {
+          "name": "path",
+          "value": "${workspaceFolder}\\build\\thirdparty\\out\\bin"
+        },
+        {
+          "name": "WEB_ROOT_PATH",
+          "value": "${workspaceFolder}\\web"
+        }
+      ],
+      //"console": "externalTerminal",
+      "preLaunchTask": "task-build-rel",
+      "console": "integratedTerminal"
+    }
+  ]
 }

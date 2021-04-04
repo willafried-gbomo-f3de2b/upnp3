@@ -74,25 +74,16 @@
     "xutility": "cpp"
   },
   "C_Cpp.default.includePath": [
-    "${default}", 
+    "${default}",
     "build/thirdparty/out/include",
     "build/thirdparty/out/include/pthread"
   ],
   "C_Cpp.default.cppStandard": "c++17",
   "terminal.integrated.fontSize": 13,
   "favorites.sortOrder": "DESC",
-  "favorites.resources": [
-    "main1.cpp",
-    "thirdparty\\pupnp\\upnp\\sample"
-  ],
-  "workbench.colorCustomizations": {
-    "activityBar.activeBackground": "#4b3704",
-    "activityBar.activeBorder": "#000000",
-    "activityBar.background": "#5b4306",
-    "activityBar.foreground": "#e7e7e7",
-    "activityBar.inactiveForeground": "#e7e7e799",
-    "activityBarBadge.background": "#000000",
-    "activityBarBadge.foreground": "#e7e7e7",
-  },
-  "peacock.color": "#2b2003"
+  "favorites.resources": ["main1.cpp", "thirdparty\\pupnp\\upnp\\sample"],
+  "editor.colorDecorators": true,
+  "peacock.color": "#2b2003",
+
+  // "editor.fontSize": 12
 }
