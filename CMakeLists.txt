@@ -47,8 +47,8 @@ add_executable(upnp3
     )
 
 target_include_directories(upnp3 
-    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/deps/${BUILD_TYPE}/include
-    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/thirdparty/deps/${BUILD_TYPE}/include/pthread
+    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/deps/${BUILD_TYPE}/include
+    PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/deps/${BUILD_TYPE}/include/pthread
     )
 
 target_compile_features(upnp3 PRIVATE cxx_std_17)
