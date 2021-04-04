@@ -82,7 +82,7 @@ endif()
 
 if(BUILD_DEPS)
 # --- build deps ---
-message("--- building deps --- ${CMAKE_CURRENT_BINARY_DIR}")
+message("--- building deps: BUILD_TYPE=${BUILD_TYPE} --- ${CMAKE_CURRENT_BINARY_DIR}")
 file(REMOVE_RECURSE ${CMAKE_CURRENT_BINARY_DIR}/outtmp)
 
 # pthreads4w ---
@@ -123,13 +123,17 @@ execute_process(COMMAND ${CMAKE_COMMAND} ${CMAKE_CURRENT_SOURCE_DIR}/pupnp -D sa
 message("  --- pupnp - build")
 execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${BUILD_TYPE}
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
-    OUTPUT_QUIET
+    #OUTPUT_QUIET
+    OUTPUT_VARIABLE OUTSTDVAR
+    ERROR_VARIABLE OUTERRVAR
     )
 
 message("  --- pupnp - install")
 execute_process(COMMAND ${CMAKE_COMMAND} --install . --config ${BUILD_TYPE} --prefix ../outtmp
     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/pupnp
-    OUTPUT_QUIET
+    #OUTPUT_QUIET
+    OUTPUT_VARIABLE OUTSTDVAR
+    ERROR_VARIABLE OUTERRVAR
     )
 
 # libebml
@@ -239,7 +243,7 @@ file(GLOB OUT
     ${CMAKE_CURRENT_BINARY_DIR}/outtmp/lib/*.dll
     ${CMAKE_CURRENT_BINARY_DIR}/outtmp/bin/*.dll
     )
-message("  --- BINS: ${OUT}")
+#message("  --- BINS: ${OUT}")
 file(COPY ${OUT} DESTINATION ${OUT_BIN_PREFIX})
 
 file(GLOB OUT LIST_DIRECTORIES true

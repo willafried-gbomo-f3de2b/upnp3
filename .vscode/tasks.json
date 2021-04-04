@@ -5,7 +5,7 @@
       "label": "task-generate",
       "type": "shell",
       "command": "cmake",
-      "args": ["..", "-DBUILD_DEPS=0", "-DCMAKE_BUILD_TYPE=Debug"],
+      "args": ["..", "-DBUILD_DEPS=0", "-DBUILD_TYPE=Debug"],
       "group": "build",
       "presentation": {},
       "problemMatcher": "$msCompile",
@@ -29,7 +29,7 @@
       }
     },
     {
-      "label": "task-build-rel",
+      "label": "task-build-reldeb",
       "type": "shell",
       "command": "cmake",
       "args": ["--build", ".", "--config", "RelWithDebInfo"],
@@ -41,10 +41,10 @@
       }
     },
     {
-      "label": "task-build-deps",
+      "label": "task-deps-clean",
       "type": "shell",
       "command": "cmake",
-      "args": ["..", "-DBUILD_DEPS=1"],
+      "args": ["..", "-DCLEAN_DEPS=1"],
       "group": "build",
       "presentation": {},
       "problemMatcher": "$msCompile",
@@ -53,10 +53,10 @@
       }
     },
     {
-      "label": "task-prepare-build-deps",
+      "label": "task-deps-build",
       "type": "shell",
       "command": "cmake",
-      "args": ["..", "-DPREPARE_DEPS=1", "-DBUILD_DEPS=1"],
+      "args": ["..", "-DBUILD_DEPS=1", "-DBUILD_TYPE=Debug"],
       "group": "build",
       "presentation": {},
       "problemMatcher": "$msCompile",
@@ -65,10 +65,34 @@
       }
     },
     {
-      "label": "task-update-build-deps",
+      "label": "task-deps-build-reldeb",
       "type": "shell",
       "command": "cmake",
-      "args": ["..", "-DUPDATE_DEPS=1", "-DBUILD_DEPS=1"],
+      "args": ["..", "-DBUILD_DEPS=1", "-DBUILD_TYPE=RelWithDebInfo"],
+      "group": "build",
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    },
+    {
+      "label": "task-deps-prepare",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["..", "-DPREPARE_DEPS=1"],
+      "group": "build",
+      "presentation": {},
+      "problemMatcher": "$msCompile",
+      "options": {
+        "cwd": "${workspaceFolder}/build"
+      }
+    },
+    {
+      "label": "task-deps-update",
+      "type": "shell",
+      "command": "cmake",
+      "args": ["..", "-DUPDATE_DEPS=1"],
       "group": "build",
       "presentation": {},
       "problemMatcher": "$msCompile",
