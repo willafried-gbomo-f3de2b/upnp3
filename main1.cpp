@@ -1,7 +1,7 @@
 ﻿
 #define UPNP_DEBUG_C
 
-#include <upnp/upnp.h>
+#include "upnp/upnp.h"
 #include "upnp/UpnpLog.h"
 #include "upnp/upnptools.h"
 #include "sqlite/sqlite3.h"
