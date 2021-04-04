@@ -2,3 +2,4 @@
 /.vscode
 *.log
 upnp3.code-workspace
+/*.code-workspace
