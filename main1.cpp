@@ -20,17 +20,6 @@
 #include <thread>
 #include <string>
 
-void build(void)
-{
-	const char *build_type =
-#ifdef CBUILD_TYPE
-		BUILD_TYPE;
-#else
-		"N/A";
-#endif
-	std::cout << "BuildType: " << build_type << std::endl;
-}
-
 typedef struct COOKIE
 {
 	int a;
@@ -60,11 +49,8 @@ void OnActionRequest(Upnp_EventType EventType, const void *Event, const void *Co
 	IXML_Document *xml_res = nullptr;
 	int e = UpnpAddToActionResponse(&xml_res, actionName, serviceID, "SearchCaps", "1");
 	UpnpActionRequest_set_ActionResult(ev, xml_res);
-
-	// std::cout << ptr->m_ActionName << std::endl;
 }
 
-// int fncb(Upnp_EventType EventType, const void *Event, void *Cookie)
 int fncb(UpnpLib *p, Upnp_EventType EventType, const void *Event, const void *Cookie)
 {
 	std::cout << "fncb"
@@ -96,13 +82,7 @@ int main(int argc, char *argv[])
 {
 #pragma region
 	std::cout << "main." << std::endl;
-	build();
-	std::string a(ifnull("", "a"));
 
-	// std::string root_xml = std::string(argv[0]).substr(0,
-	// std::string(argv[0]).find_last_of("\\")) + "\\root.xml"; std::string root
-	// = std::string(argv[0]).substr(0,
-	// std::string(argv[0]).find_last_of("\\"));
 	std::string root = ifnull(::getenv("WEB_ROOT_PATH"), "");
 	std::cout << root << std::endl;
 	int port = 50123;
@@ -128,21 +108,16 @@ int main(int argc, char *argv[])
 	NIInfo &nii = niilst.value()[0];
 	int e;
 
-	// UpnpSetLogFileName("pupnp.log", "");
-
 	char *locale = setlocale(LC_ALL, "");
 	std::cout << "LOCALE: " << locale << std::endl;
-	//setlocale(LC_ALL, "");
-	std::cout << ::GetThreadLocale() << std::endl;
 
-	//nii.friendly_name = L"Wi-Fi 第二";
 	char buf[256] = {};
 	::WideCharToMultiByte(
 		CP_THREAD_ACP, 0, nii.friendly_name.c_str(), -1, buf, sizeof buf, NULL, NULL);
 	std::cout << "nii.friend: " << buf << std::endl;
 
 	UpnpLib *upnp = nullptr;
-	UpnpLog* upnp_log = UpnpLog_new();
+	UpnpLog *upnp_log = UpnpLog_new();
 
 	UpnpSetLogFileName(upnp_log, "pupnp.log");
 
@@ -152,23 +127,15 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	//UpnpSetLogFileName(upnp, "pupnp.log");
-
 	if ((e = UpnpSetWebServerRootDir(upnp, root.c_str())) != UPNP_E_SUCCESS)
 	{
 		std::cout << "error. UpnpSetWebServerRootDir, " << e << std::endl;
 		return 1;
 	};
 
-	// const char url[] = "http://192.168.11.12/xml.xml";
 	const std::string url = std::string("http://") +
 							make_address_string(nii.ip4addr[0].data()) + ":" +
 							std::to_string(port) + "/root.xml";
-
-	std::wstring ws = L"Bluetooth ネットワーク接続 2";
-	char cbuf[100] = {};
-	wcstombs(cbuf, ws.c_str(), 100);
-	std::cout << cbuf << std::endl;
 
 	COOKIE cookie = {123};
 	UpnpDevice_Handle hnd;
