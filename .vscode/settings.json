@@ -1,5 +1,4 @@
 {
-  "cmake.configureOnOpen": false,
   "C_Cpp.default.includePath": [
     "${default}",
     "build/thirdparty/out/include",
