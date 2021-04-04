@@ -5,7 +5,6 @@
         }
     ],
     "settings": {
-        
         "peacock.color": "#051120",
         "workbench.colorTheme": "Visual Studio Dark - C++",
         "workbench.colorCustomizations": {
